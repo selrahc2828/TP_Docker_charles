@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+
+  mariadb:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tp_db
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+    depends_on:
+      - mariadb
+
+  phpmyadmin:
+    depends_on:
+      - mariadb
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=mariadb
+    ports:
+      - 1212:80
+
+  web:
+    build: .
+    ports:
+      - 1215:80
+    volumes:
+      - ./:/var/www/html
