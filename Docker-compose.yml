@@ -30,4 +30,4 @@ services:
     ports:
       - 1215:80
     volumes:
-      - ./:/var/www/html
+      - .:/var/www/html
